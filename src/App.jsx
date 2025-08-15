@@ -30,11 +30,21 @@ import {
 
 const theme = createTheme({
   palette: {
-    primary: { main: "#6D4C41" },
-    secondary: { main: "#A1887F" },
-    background: { default: "#FDFCF9", paper: "#FFFFFF" },
-    text: { primary: "#4E342E", secondary: "#795548" },
-    divider: "#EFEBE9",
+    primary: {
+      main: "#74061A",
+    },
+    secondary: {
+      main: "#BFA89E",
+    },
+    background: {
+      default: "#F9F9F9",
+      paper: "#FFFFFF",
+    },
+    text: {
+      primary: "#212121",
+      secondary: "#757575",
+    },
+    divider: "#E0E0E0",
   },
   typography: {
     fontFamily: '"Raleway", "Helvetica", "Arial", sans-serif',
@@ -46,24 +56,27 @@ const theme = createTheme({
     h2: {
       fontFamily: '"Playfair Display", serif',
       fontWeight: 700,
-      fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+      fontSize: "clamp(2.2rem, 5vw, 3.2rem)",
     },
     h3: {
       fontFamily: '"Playfair Display", serif',
       fontWeight: 700,
-      fontSize: "clamp(2rem, 4vw, 2.8rem)",
+      fontSize: "clamp(1.8rem, 4vw, 2.5rem)",
     },
     h4: {
       fontFamily: '"Playfair Display", serif',
       fontWeight: 700,
-      fontSize: "1.8rem",
+      fontSize: "1.6rem",
     },
     h5: {
       fontFamily: '"Playfair Display", serif',
       fontWeight: 700,
-      fontSize: "1.5rem",
+      fontSize: "1.4rem",
     },
-    body1: { fontSize: "1.1rem", lineHeight: 1.6 },
+    body1: {
+      fontSize: "1.1rem",
+      lineHeight: 1.7,
+    },
   },
   components: {
     MuiButton: {
@@ -71,18 +84,20 @@ const theme = createTheme({
         root: {
           textTransform: "none",
           fontWeight: 700,
-          transition: "all 0.2s ease-in-out",
+          borderRadius: "50px",
+          transition: "all 0.3s ease-in-out",
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: "8px",
-          boxShadow: "0 10px 15px rgba(0,0,0,0.08)",
-          transition: "transform 0.2s ease-in-out",
+          borderRadius: "12px",
+          boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
+          transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
           "&:hover": {
             transform: "translateY(-5px)",
+            boxShadow: "0 8px 25px rgba(0,0,0,0.08)",
           },
         },
       },
@@ -91,9 +106,9 @@ const theme = createTheme({
 });
 
 const SectionContainer = styled(Box)(({ theme }) => ({
-  minHeight: "100vh",
   width: "100%",
-  padding: "8rem 2rem 4rem",
+  minHeight: "100vh",
+  padding: "6rem 2rem",
   boxSizing: "border-box",
   display: "flex",
   flexDirection: "column",
@@ -101,20 +116,18 @@ const SectionContainer = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   position: "relative",
   borderBottom: `1px solid ${theme.palette.divider}`,
+  scrollSnapAlign: "start",
   "&:last-of-type": {
     borderBottom: "none",
   },
+  [theme.breakpoints.down("md")]: {
+    padding: "4rem 1rem",
+  },
 }));
 
-const HomeSectionContainer = styled(SectionContainer)({
-  height: "100vh",
-  paddingTop: "6rem",
-  paddingBottom: "2rem",
-});
-
-const LightBackgroundSection = styled(SectionContainer)({
-  backgroundColor: "#FBF9F6",
-});
+const LightBackgroundSection = styled(SectionContainer)(({ theme }) => ({
+  backgroundColor: theme.palette.background.paper,
+}));
 
 const SectionTitle = styled(Typography)({
   marginBottom: "1rem",
@@ -123,22 +136,25 @@ const SectionTitle = styled(Typography)({
 
 const SectionSubtitle = styled(Typography)(({ theme }) => ({
   color: theme.palette.text.secondary,
-  maxWidth: "600px",
+  maxWidth: "700px",
   textAlign: "center",
   marginBottom: "3rem",
-  lineHeight: 1.6,
+  lineHeight: 1.7,
 }));
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  boxShadow: "0 10px 15px rgba(0,0,0,0.08)",
-  padding: "1rem 2rem",
+  backgroundColor: "rgba(255, 255, 255, 0.8)",
+  backdropFilter: "blur(10px)",
+  boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+  padding: "0.5rem 2rem",
+  color: theme.palette.text.primary,
 }));
 
-const LogoTypography = styled(Typography)({
+const LogoTypography = styled(Typography)(({ theme }) => ({
   flexGrow: 1,
   cursor: "pointer",
-});
+  color: theme.palette.primary.main,
+}));
 
 const NavLinksContainer = styled(Box)(({ theme }) => ({
   display: "none",
@@ -149,12 +165,13 @@ const NavLinksContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const NavButton = styled(Button)({
-  color: "#FDFCF9",
-  opacity: 0.8,
+const NavButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  opacity: 0.7,
   position: "relative",
   padding: "0.5rem",
   fontSize: "1rem",
+  borderRadius: 0,
   "&:after": {
     content: '""',
     position: "absolute",
@@ -163,7 +180,7 @@ const NavButton = styled(Button)({
     transform: "translateX(-50%)",
     width: 0,
     height: "2px",
-    background: "#FDFCF9",
+    background: theme.palette.primary.main,
     transition: "width 0.3s",
   },
   "&:hover": {
@@ -173,22 +190,21 @@ const NavButton = styled(Button)({
       width: "100%",
     },
   },
-});
+}));
 
-const LanguageButton = styled(NavButton)({
-  border: "1px solid rgba(253, 252, 249, 0.5)",
-  borderRadius: "20px",
+const LanguageButton = styled(Button)(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
   padding: "0.5rem 1rem",
   display: "flex",
   alignItems: "center",
   gap: "0.5rem",
+  color: theme.palette.text.secondary,
   "&:hover": {
-    backgroundColor: "rgba(255,255,255,0.1)",
+    backgroundColor: "rgba(0,0,0,0.04)",
+    borderColor: theme.palette.primary.main,
+    color: theme.palette.primary.main,
   },
-  "&:after": {
-    display: "none",
-  },
-});
+}));
 
 const HeroContentContainer = styled(Box)({
   display: "flex",
@@ -204,10 +220,10 @@ const HeroImageContainer = styled(Box)({
   width: "100%",
   maxWidth: "800px",
   maxHeight: "55vh",
-  marginBottom: "1.5rem",
-  borderRadius: "8px",
+  marginBottom: "2rem",
+  borderRadius: "12px",
   overflow: "hidden",
-  boxShadow: "0 10px 15px rgba(0,0,0,0.08)",
+  boxShadow: "0 15px 30px rgba(0,0,0,0.1)",
 });
 
 const HeroImage = styled("img")({
@@ -225,17 +241,16 @@ const HeroTagline = styled(Typography)({
 const HeroHours = styled(Typography)(({ theme }) => ({
   fontSize: "clamp(1rem, 2vw, 1.1rem)",
   color: theme.palette.text.secondary,
-  margin: "0 0 1.5rem",
+  margin: "0 0 2rem",
 }));
 
 const HeroCTAButton = styled(Button)(({ theme }) => ({
-  padding: "0.8rem 2rem",
+  padding: "0.8rem 2.5rem",
   backgroundColor: theme.palette.primary.main,
   color: "white",
-  borderRadius: "50px",
   "&:hover": {
     transform: "translateY(-3px)",
-    boxShadow: "0 12px 20px rgba(0,0,0,0.1)",
+    boxShadow: `0 10px 20px ${theme.palette.primary.main}40`,
     backgroundColor: theme.palette.primary.dark,
   },
 }));
@@ -244,25 +259,22 @@ const AboutContentContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  gap: "2rem",
+  gap: "3rem",
   maxWidth: "900px",
   [theme.breakpoints.up("md")]: {
     flexDirection: "row",
+    gap: "4rem",
   },
 }));
 
 const AboutImage = styled("img")(({ theme }) => ({
-  width: "250px",
-  height: "300px",
+  width: "280px",
+  height: "280px",
   borderRadius: "50%",
   objectFit: "cover",
-  boxShadow: "0 10px 15px rgba(0,0,0,0.08)",
+  boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
   objectPosition: "50% 25%",
   flexShrink: 0,
-  marginTop: "2rem",
-  [theme.breakpoints.up("md")]: {
-    marginTop: 0,
-  },
 }));
 
 const AboutTextContainer = styled(Box)(({ theme }) => ({
@@ -278,32 +290,43 @@ const ContactLayoutContainer = styled(Box)(({ theme }) => ({
   gap: "2rem",
   width: "100%",
   maxWidth: "1200px",
-  alignItems: "stretch",
+  alignItems: "center",
   [theme.breakpoints.up("md")]: {
     flexDirection: "row",
     gap: "3rem",
+    alignItems: "stretch",
   },
 }));
 
-const ContactCard = styled(Card)({
+const ContactCard = styled(Card)(({ theme }) => ({
   padding: "2rem",
   display: "flex",
   flexDirection: "column",
-  flex: "1 1 0px",
-});
+  width: "100%",
+  maxWidth: "500px",
+  [theme.breakpoints.up("md")]: {
+    flex: "1 1 45%",
+    maxWidth: "none",
+  },
+}));
 
 const ContactCopyButton = styled(IconButton)({
   marginLeft: "auto",
 });
 
-const MapContainer = styled(Box)({
-  borderRadius: "8px",
+const MapContainer = styled(Box)(({ theme }) => ({
+  borderRadius: "12px",
   overflow: "hidden",
-  boxShadow: "0 10px 15px rgba(0,0,0,0.08)",
-  minHeight: "400px",
-  flex: "1 1 0px",
+  boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+  height: "400px",
   width: "100%",
-});
+  maxWidth: "500px",
+  [theme.breakpoints.up("md")]: {
+    flex: "1 1 55%",
+    height: "auto",
+    maxWidth: "none",
+  },
+}));
 
 const MapIframe = styled("iframe")({
   border: "none",
@@ -312,33 +335,28 @@ const MapIframe = styled("iframe")({
 });
 
 const GalleryLayoutContainer = styled(Box)({
-  display: "flex",
-  flexWrap: "wrap",
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
   gap: "2rem",
   width: "100%",
   maxWidth: "1200px",
-  justifyContent: "center",
 });
 
 const GalleryCardContainer = styled(Card)({
   display: "flex",
   flexDirection: "column",
-  width: "100%",
-  flex: "1 1 280px",
-  maxWidth: "350px",
 });
 
 const GalleryCardMedia = styled(CardMedia)({
-  height: "auto",
-  maxHeight: "55vh",
+  height: "400px",
   objectFit: "cover",
 });
 
-const GalleryDescription = styled(CardContent)({
+const GalleryDescription = styled(CardContent)(({ theme }) => ({
   textAlign: "center",
   fontStyle: "italic",
-  backgroundColor: "#FBF9F6",
-});
+  backgroundColor: theme.palette.background.default,
+}));
 
 const DonationsLayoutContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -354,35 +372,40 @@ const DonationsLayoutContainer = styled(Box)(({ theme }) => ({
 
 const DonationCard = styled(Card, {
   shouldForwardProp: (prop) => prop !== "accepted",
-})(({ accepted }) => ({
+})(({ accepted, theme }) => ({
   padding: "2rem",
-  borderTop: `5px solid ${accepted ? "#81C784" : "#E57373"}`,
+  borderTop: `5px solid ${
+    accepted ? theme.palette.success.main : theme.palette.error.main
+  }`,
   flex: 1,
 }));
 
-const DonationListContainer = styled(Box)({
+const DonationListContainer = styled("ul")({
   padding: 0,
   listStyle: "none",
+  margin: 0,
 });
 
-const DonationListItem = styled(Typography, {
+const DonationListItem = styled("li", {
   shouldForwardProp: (prop) => prop !== "accepted",
-})(({ accepted }) => ({
+})(({ accepted, theme }) => ({
   marginBottom: "0.75rem",
   display: "flex",
   alignItems: "center",
   gap: "0.75rem",
   "&::before": {
     content: accepted ? '"✓"' : '"✗"',
-    display: "inline-block",
-    width: "18px",
-    height: "18px",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "20px",
+    height: "20px",
     borderRadius: "50%",
     flexShrink: 0,
-    backgroundColor: accepted ? "#C8E6C9" : "#FFCDD2",
-    color: accepted ? "#388E3C" : "#D32F2F",
-    textAlign: "center",
-    lineHeight: "18px",
+    backgroundColor: accepted
+      ? theme.palette.success.light
+      : theme.palette.error.light,
+    color: accepted ? theme.palette.success.dark : theme.palette.error.dark,
     fontWeight: "bold",
   },
 }));
@@ -400,51 +423,43 @@ const SocialButton = styled(Button)(({ theme }) => ({
   alignItems: "center",
   gap: "0.75rem",
   padding: "0.7rem 1.5rem",
-  borderRadius: "50px",
   textDecoration: "none",
-  color: theme.palette.text.primary,
+  color: theme.palette.text.secondary,
   fontWeight: 500,
-  backgroundColor: "#EFEBE9",
+  backgroundColor: theme.palette.background.paper,
+  border: `1px solid ${theme.palette.divider}`,
   "&:hover": {
-    backgroundColor: "#D7CCC8",
+    backgroundColor: "rgba(0,0,0,0.04)",
+    borderColor: theme.palette.text.primary,
+    color: theme.palette.text.primary,
     transform: "translateY(-2px)",
   },
 }));
 
-const ReviewLinkButton = styled(SocialButton)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  color: "#FDFCF9",
-  fontWeight: "bold",
-  marginTop: "2rem",
-  "&:hover": {
-    backgroundColor: theme.palette.text.primary,
-  },
-}));
+const ReviewLinkButton = styled(HeroCTAButton)({
+  marginTop: "3rem",
+});
 
 const CommunityVoicesTitle = styled(Typography)({
-  fontSize: "clamp(2rem, 4vw, 2.8rem)",
   textAlign: "center",
   marginTop: "2rem",
   marginBottom: "2rem",
 });
 
 const ReviewsFlexContainer = styled(Box)({
-  display: "flex",
-  flexWrap: "wrap",
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
   gap: "2rem",
   width: "100%",
   maxWidth: "1200px",
-  justifyContent: "center",
 });
 
-const ReviewCard = styled(Card)({
+const ReviewCard = styled(Card)(({ theme }) => ({
   padding: "2rem",
-  borderLeft: "5px solid #A1887F",
+  borderLeft: `5px solid ${theme.palette.secondary.main}`,
   display: "flex",
   flexDirection: "column",
-  flex: "1 1 320px",
-  maxWidth: "400px",
-});
+}));
 
 const ReviewQuoteTypography = styled(Typography)({
   fontStyle: "italic",
@@ -454,9 +469,9 @@ const ReviewQuoteTypography = styled(Typography)({
 
 const FooterContainer = styled("footer")(({ theme }) => ({
   textAlign: "center",
-  padding: "2rem",
+  padding: "3rem 2rem",
   backgroundColor: theme.palette.primary.main,
-  color: "rgba(253, 252, 249, 0.9)",
+  color: "rgba(255, 255, 255, 0.9)",
   fontSize: "0.9rem",
   lineHeight: 1.6,
 }));
@@ -702,6 +717,12 @@ const Header = ({ content, onNavClick, onLangChange, currentLang }) => {
             }}
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
+            PaperProps={{
+              style: {
+                marginTop: "45px",
+                borderRadius: "8px",
+              },
+            }}
           >
             {Object.entries(content.nav).map(([key, value]) => (
               <MenuItem key={key} onClick={() => handleMenuItemClick(key)}>
@@ -724,7 +745,7 @@ const Header = ({ content, onNavClick, onLangChange, currentLang }) => {
 };
 
 const HeroSection = ({ content, onCtaClick, id, refProp }) => (
-  <HomeSectionContainer id={id} ref={refProp} component="section">
+  <SectionContainer id={id} ref={refProp} component="section">
     <HeroContentContainer>
       <HeroImageContainer>
         <HeroImage
@@ -740,7 +761,7 @@ const HeroSection = ({ content, onCtaClick, id, refProp }) => (
         {content.nav.contact}
       </HeroCTAButton>
     </HeroContentContainer>
-  </HomeSectionContainer>
+  </SectionContainer>
 );
 
 const AboutSection = ({ content, id, refProp }) => (
@@ -864,21 +885,21 @@ const DonationsSection = ({ content, id, refProp }) => (
         <Typography variant="h5" component="h3" align="center" gutterBottom>
           {content.acceptedTitle}
         </Typography>
-        <DonationListContainer component="ul">
+        <DonationListContainer>
           {content.acceptedItems.map((item) => (
-            <DonationListItem component="li" key={item} accepted>
+            <DonationListItem key={item} accepted>
               {item}
             </DonationListItem>
           ))}
         </DonationListContainer>
       </DonationCard>
-      <DonationCard>
+      <DonationCard accepted={false}>
         <Typography variant="h5" component="h3" align="center" gutterBottom>
           {content.notAcceptedTitle}
         </Typography>
-        <DonationListContainer component="ul">
+        <DonationListContainer>
           {content.notAcceptedItems.map((item) => (
-            <DonationListItem component="li" key={item}>
+            <DonationListItem key={item} accepted={false}>
               {item}
             </DonationListItem>
           ))}
@@ -944,7 +965,9 @@ const Footer = ({ content }) => (
     <Typography>
       {content.contactUs}: {storeData.phone}
     </Typography>
-    <Typography variant="body2">{content.footerCredit}</Typography>
+    <Typography variant="body2" sx={{ opacity: 0.7 }}>
+      {content.footerCredit}
+    </Typography>
   </FooterContainer>
 );
 
@@ -967,18 +990,14 @@ export default function App() {
   };
 
   const handleCopyAddress = () => {
-    const textArea = document.createElement("textarea");
-    textArea.value = storeData.address;
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    try {
-      document.execCommand("copy");
-      setCopySuccess(true);
-    } catch (err) {
-      console.error("Fallback: Oops, unable to copy", err);
-    }
-    document.body.removeChild(textArea);
+    navigator.clipboard.writeText(storeData.address).then(
+      () => {
+        setCopySuccess(true);
+      },
+      (err) => {
+        console.error("Could not copy text: ", err);
+      }
+    );
   };
 
   const handleCloseSnackbar = (event, reason) => {
@@ -991,7 +1010,13 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box>
+      <Box
+        sx={{
+          height: "100vh",
+          overflowY: "scroll",
+          scrollSnapType: "y mandatory",
+        }}
+      >
         <Header
           content={content}
           onNavClick={scrollToSection}
@@ -999,12 +1024,30 @@ export default function App() {
           currentLang={language}
         />
         <main>
-          <HeroSection
-            content={content}
-            onCtaClick={() => scrollToSection("contact")}
+          <SectionContainer
             id="home"
-            refProp={sectionRefs.home}
-          />
+            ref={sectionRefs.home}
+            component="section"
+          >
+            <HeroContentContainer>
+              <HeroImageContainer>
+                <HeroImage
+                  src={storeData.heroImage}
+                  alt="A welcoming view of the La Mejor Figura thrift store"
+                />
+              </HeroImageContainer>
+              <HeroTagline variant="h2" component="h2" color="textPrimary">
+                {content.tagline}
+              </HeroTagline>
+              <HeroHours variant="body1">{content.hoursSummary}</HeroHours>
+              <HeroCTAButton
+                variant="contained"
+                onClick={() => scrollToSection("contact")}
+              >
+                {content.nav.contact}
+              </HeroCTAButton>
+            </HeroContentContainer>
+          </SectionContainer>
           <AboutSection
             content={content}
             id="about"
