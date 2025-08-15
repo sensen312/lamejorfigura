@@ -582,25 +582,24 @@ const storeData = {
   socials: {
     facebookPage: "https://www.facebook.com/lamejorfigura/",
     facebookMarketplace:
-      "https://www.facebook.com/marketplace/profile/100009583949021/",
+      "https://www.facebook.com/marketplace/profile/100000546253595/",
     instagram: "#",
   },
-  heroImage:
-    "https://placehold.co/1200x800/A1887F/FDFCF9?text=Store+Image+Here",
-  ruthImage: "https://placehold.co/400x400/6D4C41/FFFFFF?text=Ruth",
+  heroImage: "/images/storefront.png",
+  ruthImage: "/images/ruth.jpg",
   galleryItems: [
     {
-      src: "https://placehold.co/600x800/d7ccc8/3e2723?text=Unique+Finds",
+      src: "/images/fashionclothes.jpg",
       en: "Discover unique and stylish outfits.",
       es: "Descubra atuendos únicos y con estilo.",
     },
     {
-      src: "https://placehold.co/600x800/bcaaa4/3e2723?text=Vintage+Vibes",
+      src: "/images/jewelry.jpg",
       en: "A treasure trove of vintage accessories.",
       es: "Un tesoro de accesorios vintage.",
     },
     {
-      src: "https://placehold.co/600x800/a1887f/f5f5f5?text=Great+Prices",
+      src: "/images/homepiece.jpg",
       en: "Find the perfect piece for your home.",
       es: "Encuentre la pieza perfecta para su hogar.",
     },
