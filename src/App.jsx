@@ -15,6 +15,8 @@ import {
   IconButton,
   Snackbar,
   Alert,
+  Menu,
+  MenuItem,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import {
@@ -23,6 +25,7 @@ import {
   Storefront,
   Language,
   ContentCopy,
+  Menu as MenuIcon,
 } from "@mui/icons-material";
 
 const theme = createTheme({
@@ -248,14 +251,19 @@ const AboutContentContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const AboutImage = styled("img")({
-  width: "200px",
-  height: "200px",
+const AboutImage = styled("img")(({ theme }) => ({
+  width: "250px",
+  height: "300px",
   borderRadius: "50%",
   objectFit: "cover",
   boxShadow: "0 10px 15px rgba(0,0,0,0.08)",
+  objectPosition: "50% 25%",
   flexShrink: 0,
-});
+  marginTop: "2rem",
+  [theme.breakpoints.up("md")]: {
+    marginTop: 0,
+  },
+}));
 
 const AboutTextContainer = styled(Box)(({ theme }) => ({
   textAlign: "center",
@@ -638,6 +646,18 @@ const storeData = {
 };
 
 const Header = ({ content, onNavClick, onLangChange, currentLang }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+  const handleMenuItemClick = (id) => {
+    onNavClick(id);
+    handleMenuClose();
+  };
+
   return (
     <StyledAppBar position="fixed" component="header">
       <Toolbar>
@@ -658,6 +678,46 @@ const Header = ({ content, onNavClick, onLangChange, currentLang }) => {
             {currentLang === "en" ? "Español" : "English"}
           </LanguageButton>
         </NavLinksContainer>
+        <Box sx={{ display: { xs: "flex", md: "none" } }}>
+          <IconButton
+            size="large"
+            edge="end"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleMenuOpen}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleMenuClose}
+          >
+            {Object.entries(content.nav).map(([key, value]) => (
+              <MenuItem key={key} onClick={() => handleMenuItemClick(key)}>
+                {value}
+              </MenuItem>
+            ))}
+            <MenuItem
+              onClick={() => {
+                onLangChange();
+                handleMenuClose();
+              }}
+            >
+              {currentLang === "en" ? "Español" : "English"}
+            </MenuItem>
+          </Menu>
+        </Box>
       </Toolbar>
     </StyledAppBar>
   );
