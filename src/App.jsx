@@ -116,7 +116,6 @@ const SectionContainer = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   position: "relative",
   borderBottom: `1px solid ${theme.palette.divider}`,
-  scrollSnapAlign: "start",
   "&:last-of-type": {
     borderBottom: "none",
   },
@@ -124,6 +123,11 @@ const SectionContainer = styled(Box)(({ theme }) => ({
     padding: "4rem 1rem",
   },
 }));
+
+const HomeSectionContainer = styled(SectionContainer)({
+  paddingTop: "6rem",
+  paddingBottom: "2rem",
+});
 
 const LightBackgroundSection = styled(SectionContainer)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -745,7 +749,7 @@ const Header = ({ content, onNavClick, onLangChange, currentLang }) => {
 };
 
 const HeroSection = ({ content, onCtaClick, id, refProp }) => (
-  <SectionContainer id={id} ref={refProp} component="section">
+  <HomeSectionContainer id={id} ref={refProp} component="section">
     <HeroContentContainer>
       <HeroImageContainer>
         <HeroImage
@@ -761,7 +765,7 @@ const HeroSection = ({ content, onCtaClick, id, refProp }) => (
         {content.nav.contact}
       </HeroCTAButton>
     </HeroContentContainer>
-  </SectionContainer>
+  </HomeSectionContainer>
 );
 
 const AboutSection = ({ content, id, refProp }) => (
@@ -1010,13 +1014,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box
-        sx={{
-          height: "100vh",
-          overflowY: "scroll",
-          scrollSnapType: "y mandatory",
-        }}
-      >
+      <Box>
         <Header
           content={content}
           onNavClick={scrollToSection}
@@ -1024,30 +1022,12 @@ export default function App() {
           currentLang={language}
         />
         <main>
-          <SectionContainer
+          <HeroSection
+            content={content}
+            onCtaClick={() => scrollToSection("contact")}
             id="home"
-            ref={sectionRefs.home}
-            component="section"
-          >
-            <HeroContentContainer>
-              <HeroImageContainer>
-                <HeroImage
-                  src={storeData.heroImage}
-                  alt="A welcoming view of the La Mejor Figura thrift store"
-                />
-              </HeroImageContainer>
-              <HeroTagline variant="h2" component="h2" color="textPrimary">
-                {content.tagline}
-              </HeroTagline>
-              <HeroHours variant="body1">{content.hoursSummary}</HeroHours>
-              <HeroCTAButton
-                variant="contained"
-                onClick={() => scrollToSection("contact")}
-              >
-                {content.nav.contact}
-              </HeroCTAButton>
-            </HeroContentContainer>
-          </SectionContainer>
+            refProp={sectionRefs.home}
+          />
           <AboutSection
             content={content}
             id="about"
